@@ -13,15 +13,32 @@ function Home() {
   const [error, setError] = useState("");
   const [searched, setSearched] = useState(false);
 
-  const handleSearch = async () => {
-    if (!query.trim()) return;
+  const handleSearch = async (searchTerm = null) => {
+    console.log('handleSearch called with:', searchTerm, 'current query:', query); // Debug log
+    const searchQuery = searchTerm || query;
+    console.log('Final search query:', searchQuery); // Debug log
+    
+    if (!searchQuery.trim()) {
+      console.log('Search cancelled - empty query'); // Debug log
+      return;
+    }
+    
+    // If searchTerm is provided, update the query state
+    if (searchTerm && searchTerm !== query) {
+      setQuery(searchTerm);
+    }
+    
     setLoading(true);
     setError("");
     setSearched(true);
+    console.log('Starting search for:', searchQuery); // Debug log
+    
     try {
-      const data = await fetchBooks(query);
+      const data = await fetchBooks(searchQuery);
       setBooks(data.docs || []);
+      console.log('Search completed, found:', data.docs?.length, 'books'); // Debug log
     } catch (err) {
+      console.error('Search error:', err); // Debug log
       setError("Oops! Something went wrong.");
     } finally {
       setLoading(false);
@@ -35,36 +52,38 @@ function Home() {
         {/* Search Section */}
         <div className="flex-1 flex flex-col justify-center items-center px-4">
           {/* Search Bar */}
-          <div className="w-full max-w-4xl mb-8 justify-center flex">
+          <div className="w-full max-w-4xl mb-8 justify-center-flex mt-10">
             <SearchBar query={query} setQuery={setQuery} onSearch={handleSearch} />
           </div>
 
           {/* Welcome Section - Only show when no search has been made */}
           {!searched && !loading && (
-            <div className="text-center max-w-2xl">
-              {/* Welcome Illustration */}
-              <div className="mb-8">
-                <div className="w-40 h-48 mx-auto bg-gray-800 rounded-lg flex items-center justify-center mb-6 border-2 border-gray-700">
-                  <div className="text-center">
-                    <div className="text-4xl mb-2">📚</div>
-                    <div className="text-gray-400 text-sm">Welcome illustration</div>
+            <div className="bg-gray-800 rounded-2xl p-12 max-w-2xl mx-auto shadow-xl border border-gray-700">
+              <div className="text-center">
+                {/* Welcome Illustration */}
+                <div className="mb-8">
+                  <div className="w-40 h-48 mx-auto bg-gray-700 rounded-lg flex items-center justify-center mb-6 border-2 border-gray-600">
+                    <div className="text-center">
+                      <div className="text-4xl mb-2">📚</div>
+                      <div className="text-gray-400 text-sm">Welcome illustration</div>
+                    </div>
                   </div>
                 </div>
+
+                {/* Welcome Text */}
+                <h1 className="text-3xl font-bold mb-4 text-white">Welcome to Book Finder!</h1>
+                <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+                  Start your journey by searching for a book title. For example, try searching for "The Great Gatsby" to see how it works.
+                </p>
+
+                {/* Start Searching Button */}
+                <button
+                  onClick={() => document.querySelector('input').focus()}
+                  className="bg-gray-700 hover:bg-gray-600 text-white px-8 py-3 rounded-lg transition-colors duration-200 font-medium shadow-lg hover:shadow-xl"
+                >
+                  Start Searching
+                </button>
               </div>
-
-              {/* Welcome Text */}
-              <h1 className="text-3xl font-bold mb-4 text-white">Welcome to Book Finder!</h1>
-              <p className="text-gray-400 text-lg mb-8 leading-relaxed">
-                Start your journey by searching for a book title. For example, try searching for "The Great Gatsby" to see how it works.
-              </p>
-
-              {/* Start Searching Button */}
-              <button
-                onClick={() => document.querySelector('input').focus()}
-                className="bg-gray-700 hover:bg-gray-600 text-white px-8 py-3 rounded-lg transition-colors duration-200 font-medium"
-              >
-                Start Searching
-              </button>
             </div>
           )}
 
@@ -107,7 +126,7 @@ function Home() {
 
         {/* Results Section */}
         {!loading && !error && books.length > 0 && (
-          <div className="container mx-auto px-4 py-8">
+          <div className="container mx-auto px-4 pb-8">
             <div className="mb-6">
               <h2 className="text-2xl font-bold mb-2">Search Results</h2>
               <p className="text-gray-400">Found {books.length} books for "{query}"</p>
