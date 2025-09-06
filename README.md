@@ -81,10 +81,11 @@ https://openlibrary.org/search.json?q=harry+potter
 📸 Screenshots
 
 ### Landing Page
-![Landing Page](assets/homepage.png)
+![Landing Page](src/assets/homepage.png)
 
 ### Search Results
-![Search Results](assets/search-results.png)
+![Search Results](src/assets/search-results.png)
+
 
 📜 License
 
