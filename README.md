@@ -1,12 +1,91 @@
-# React + Vite
+📚 Book Finder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Book Finder is a React-based web app that lets you search books using the Open Library API. It provides a simple interface to look up book titles, view authors, publication year, and cover images.
 
-Currently, two official plugins are available:
+✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔎 Search books by title
 
-## Expanding the ESLint configuration
+🕑 Search history dropdown for quick access
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+📖 Book details including cover, author, and first publish year
+
+🎨 Clean UI with Tailwind CSS
+
+⏳ Loading states and friendly error messages
+
+📱 Responsive design (works on mobile & desktop)
+
+
+🛠️ Tech Stack
+
+->React
+ – Frontend framework
+
+->Tailwind CSS
+ – Styling
+
+-> Library API
+ – Book data
+
+
+📂 Project Structure
+```
+src/
+ ├── components/
+ │    ├── BookCard.jsx       # Displays a single book
+ │    ├── BookList.jsx       # Grid of books
+ │    ├── ErrorMessage.jsx   # Error UI with retry option
+ │    ├── Header.jsx         # App header with navigation
+ │    ├── Loader.jsx         # Spinner loader
+ │    └── SearchBar.jsx      # Input with search + history
+ │
+ ├── pages/
+ │    └── Home.jsx           # Main search/results page
+ │
+ ├── utils/
+ │    └── api.js             # fetchBooks function (Open Library API calls)
+ │
+ ├── App.jsx                 # Root app component
+ └── index.js                # Entry point
+
+```
+
+🚀 Getting Started
+```
+1. Clone the repo
+git clone https://github.com/your-username/book-finder.git
+cd book-finder
+
+2. Install dependencies
+npm install
+
+3. Run the development server
+npm run dev
+
+
+Then open http://localhost:5173/
+ in your browser (if using Vite).
+
+4. Build for production
+npm run build
+npm run preview
+```
+
+🔑 API Used
+
+The app fetches book data from the Open Library API. Example search request:
+
+https://openlibrary.org/search.json?q=harry+potter
+
+📸 Screenshots
+
+### Landing Page
+![Landing Page](assets/homepage.png)
+
+### Search Results
+![Search Results](assets/search-results.png)
+
+📜 License
+
+This project is open source under the MIT License.
