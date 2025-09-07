@@ -30,7 +30,7 @@ function Header() {
         {/* Profile */}
         <button className="p-1 rounded-lg hover:bg-gray-700 transition-colors">
           <img
-            src="https://www.istockphoto.com/search/2/image-film?phrase=profile%20icon&sort=best"
+            src="https://www.gravatar.com/avatar/?d=mp"
             alt="Profile"
             className="w-8 h-8 rounded-full object-cover border-2 border-gray-600"
           />
